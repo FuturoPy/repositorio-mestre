@@ -14,19 +14,18 @@ body { margin:0; padding:0; font-family:"Comic Sans MS", Arial, sans-serif; back
 #start-btn { position: fixed; top:55%; left:50%; transform:translate(-50%,-50%); font-size:36px; font-weight:bold; color:white; background-color: rgba(0,0,0,0.6); border:none; border-radius:15px; padding:20px 60px; cursor:pointer; transition:0.3s; z-index:10; }
 #start-btn:hover{ color:#00ffff; }
 
-/* Botões de Mute (usando as imagens que você enviou) */
+/* Botões de Mute */
 #controle-audio {
   position: fixed;
   right: 18px;
   bottom: 18px;
   width: auto;
-  z-index: 10050; /* alto para aparecer sobre tudo */
+  z-index: 10050;
   display:flex;
   gap: 8px;
   align-items:center;
 }
 
-/* imagens do usuário */
 #btn-user-off, #btn-user-on {
   width: 90px;
   height: auto;
@@ -46,6 +45,7 @@ body { margin:0; padding:0; font-family:"Comic Sans MS", Arial, sans-serif; back
 .area-jogo { display:flex; justify-content:center; align-items:center; gap:50px; padding:20px; box-sizing:border-box; }
 .professor { width:350px; height:450px; background-size:contain; background-repeat:no-repeat; background-position:bottom center; animation: idle 3s ease-in-out infinite; display:none; }
 
+/* Animações */
 @keyframes idle{0%{transform:translateY(0);}50%{transform:translateY(-4px);}100%{transform:translateY(0);} }
 @keyframes shake{0%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}100%{transform:translateX(0)}}
 @keyframes jump{0%{transform:translateY(0)}30%{transform:translateY(-18px)}60%{transform:translateY(0)}100%{transform:translateY(0)}}
@@ -60,17 +60,17 @@ body { margin:0; padding:0; font-family:"Comic Sans MS", Arial, sans-serif; back
 #answers button:hover { background-color:rgba(255,255,255,0.2); transform:scale(1.03); }
 #answers button:disabled { cursor:not-allowed; opacity:0.55; transform:none; }
 
-/* Marca */
+/* Marcações */
 #answers button.selecionada { box-shadow: 0 0 12px #ffffff40; transform: none; }
-#answers button.correta { color:#00ff99; border-color:#00ff99; text-shadow:none; font-weight:bold; }
-#answers button.errada { color:#ff9999; border-color:#ff9999; text-shadow:none; font-weight:bold; }
+#answers button.correta { color:#00ff99; border-color:#00ff99; font-weight:bold; }
+#answers button.errada { color:#ff9999; border-color:#ff9999; font-weight:bold; }
 
 /* Feedback */
 .feedback { font-size:22px; font-weight:bold; margin-top:15px; text-shadow:1px 1px 2px black,0 0 3px white; min-height:28px; }
 .correct { color:#00ff99; }
 .wrong { color:#ff9999; }
 
-/* Botões controle */
+/* Navegação */
 #quiz-controles { margin-top:150px; display:flex; justify-content:center; gap:15px; }
 #quiz-controles img { width:150px; cursor:pointer; transition:0.3s; }
 #quiz-controles img:hover { transform:scale(1.1); }
@@ -94,23 +94,15 @@ body { margin:0; padding:0; font-family:"Comic Sans MS", Arial, sans-serif; back
 </head>
 <body>
 
-<!-- Música de elevador relaxante -->
+<!-- Música de Fundo -->
 <audio id="musica-fundo" loop>
   <source src="https://files.catbox.moe/6t7x4j.mp3" type="audio/mpeg">
-  Seu navegador não suporta áudio.
 </audio>
 
-<!-- CONTROLE DE ÁUDIO: uso as imagens que você mandou -->
+<!-- Controle de áudio -->
 <div id="controle-audio">
-  <!-- imagem 1 (por exemplo: som ligado) -->
-  <img id="btn-user-on"
-       src="https://uploads.onecompiler.io/444jywmud/444jyqxv3/Captura%20de%20tela%202025-11-18%20203955.png"
-       alt="som ligado (clique para mutar)">
-  <!-- imagem 2 (por exemplo: som mutado) -->
-  <img id="btn-user-off"
-       src="https://uploads.onecompiler.io/444jywmud/444jyqxv3/Captura%20de%20tela%202025-11-18%20204125.png"
-       alt="som mutado (clique para ativar)"
-       style="display:none">
+  <img id="btn-user-on" src="https://uploads.onecompiler.io/444jywmud/444jyqxv3/Captura%20de%20tela%202025-11-18%20203955.png">
+  <img id="btn-user-off" src="https://uploads.onecompiler.io/444jywmud/444jyqxv3/Captura%20de%20tela%202025-11-18%20204125.png" style="display:none">
 </div>
 
 <div id="tela-inicial"><canvas id="particles"></canvas></div>
@@ -124,7 +116,7 @@ body { margin:0; padding:0; font-family:"Comic Sans MS", Arial, sans-serif; back
 
 <!-- Cadastro -->
 <div id="cadastro-perguntas">
-  <h3 style="margin:0 0 8px 0;">Adicionar Pergunta</h3>
+  <h3>Adicionar Pergunta</h3>
   <input type="text" id="nova-pergunta" placeholder="Digite a pergunta"/>
   <input type="text" id="alt1" placeholder="Alternativa 1"/>
   <input type="text" id="alt2" placeholder="Alternativa 2"/>
@@ -150,16 +142,16 @@ body { margin:0; padding:0; font-family:"Comic Sans MS", Arial, sans-serif; back
       <div id="feedback" class="feedback"></div>
 
       <div id="quiz-controles">
-        <img id="btn-voltar-pergunta" src="https://uploads.onecompiler.io/444jywmud/444jyqxv3/voltar%20pergunta.png" alt="Voltar">
-        <img id="btn-avancar-pergunta" src="https://uploads.onecompiler.io/444jywmud/444jyqxv3/avan%C3%A7ar%20pergunta.png" alt="Avançar">
-        <img id="btn-terminar" src="https://uploads.onecompiler.io/444jywmud/444jyqxv3/terminar.png" alt="Terminar">
+        <img id="btn-voltar-pergunta" src="https://uploads.onecompiler.io/444jywmud/444jyqxv3/voltar%20pergunta.png">
+        <img id="btn-avancar-pergunta" src="https://uploads.onecompiler.io/444jywmud/444jyqxv3/avan%C3%A7ar%20pergunta.png">
+        <img id="btn-terminar" src="https://uploads.onecompiler.io/444jywmud/444jyqxv3/terminar.png">
       </div>
     </div>
   </div>
 </div>
 
 <script>
-/* ================= PARTICULAS (mesmo do seu código) ================= */
+/* ================= PARTICULAS ================= */
 const canvas = document.getElementById("particles"), ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth; canvas.height = window.innerHeight;
 window.addEventListener('resize',()=>{ canvas.width=window.innerWidth; canvas.height=window.innerHeight; });
@@ -192,33 +184,26 @@ const particlesArray=[]; for(let i=0;i<80;i++) particlesArray.push(new Particle(
 function animateParticles(){ ctx.clearRect(0,0,canvas.width,canvas.height); particlesArray.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(animateParticles); }
 animateParticles();
 
-/* ================= CONTROLE DE ÁUDIO usando as imagens que você mandou ================= */
+/* ================= ÁUDIO ================= */
 const musica = document.getElementById("musica-fundo");
-const btnUserOn = document.getElementById("btn-user-on");   // imagem exibida inicialmente
-const btnUserOff = document.getElementById("btn-user-off"); // imagem para estado invertido
+const btnUserOn = document.getElementById("btn-user-on");
+const btnUserOff = document.getElementById("btn-user-off");
 
-// reduzir volume padrão para ficar suave
 musica.volume = 0.35;
+musica.play().catch(()=>{});
 
-// tenta tocar automaticamente (pode ser bloqueado em alguns navegadores)
-musica.play().catch(()=>{ /* autoplay bloqueado — OK */ });
-
-// estado inicial: som ligado (imagem 'on' visível)
-btnUserOn.addEventListener('click', () => {
-  // quando clicar na imagem 'on', vamos MUTAR e mostrar a imagem 'off'
+btnUserOn.onclick = () => {
   musica.muted = true;
-  btnUserOn.style.display = 'none';
-  btnUserOff.style.display = 'inline-block';
-});
-
-btnUserOff.addEventListener('click', () => {
-  // quando clicar na imagem 'off', DESMUTA e volta a imagem 'on'
+  btnUserOn.style.display = "none";
+  btnUserOff.style.display = "inline-block";
+};
+btnUserOff.onclick = () => {
   musica.muted = false;
-  btnUserOff.style.display = 'none';
-  btnUserOn.style.display = 'inline-block';
-});
+  btnUserOff.style.display = "none";
+  btnUserOn.style.display = "inline-block";
+};
 
-/* ================= VARIÁVEIS GERAIS DO JOGO (mantidas do seu código) ================= */
+/* ================= VARIÁVEIS ================= */
 let imgFrames = [
   "https://uploads.onecompiler.io/444jywmud/444jyqxv3/professora%20frame%201.png",
   "https://uploads.onecompiler.io/444jywmud/444jyqxv3/professora%20frame%202.png",
@@ -237,12 +222,12 @@ let telaInicial = document.getElementById("tela-inicial");
 let startBtn = document.getElementById("start-btn");
 const btnSair = document.getElementById("btn-sair-edicao");
 
-/* ========== Funções salvar / carregar ========== */
+/* ================= SALVAR / CARREGAR ================= */
 function salvarPerguntas(){ localStorage.setItem("perguntasQuiz", JSON.stringify(perguntas)); }
 function carregarPerguntas(){ const dados = localStorage.getItem("perguntasQuiz"); if(dados){ perguntas = JSON.parse(dados); atualizarCadastro(); } }
 carregarPerguntas();
 
-/* ========== Login professor ========== */
+/* ================= LOGIN ================= */
 function entrarProfessor(){
   const senha = document.getElementById("senha-professor").value;
   if(senha === "2702"){
@@ -258,7 +243,7 @@ function sairEdicao(){
   btnSair.style.display = "none";
 }
 
-/* ========== Adicionar pergunta ========== */
+/* ================= ADICIONAR PERGUNTA ================= */
 function adicionarPergunta(){
   const pergunta = document.getElementById("nova-pergunta").value.trim();
   const opcoes = [
@@ -280,7 +265,6 @@ function adicionarPergunta(){
   salvarPerguntas();
 }
 
-/* Atualiza lista de perguntas no painel do professor */
 function atualizarCadastro(){
   const cadastro = document.getElementById("cadastro-perguntas");
   cadastro.querySelectorAll("div.pergunta-item")?.forEach(el=>el.remove());
@@ -307,15 +291,12 @@ function atualizarCadastro(){
   });
 }
 
-/* ========== Desativa apenas os botões da pergunta atual ========== */
+/* ================= UTILS ================= */
 function desativarRespostasAtuais(){
-  const botoes = document.querySelectorAll("#answers button");
-  botoes.forEach(btn => {
-    btn.disabled = true;
-  });
+  document.querySelectorAll("#answers button").forEach(btn => btn.disabled = true);
 }
 
-/* ========== Escrever no quadro (animação da professora) ========== */
+/* ================= ANIMAÇÃO ESCREVER ================= */
 let escreverIntervalo = null;
 async function escreverNoQuadro(elemento, texto){
   elemento.textContent = "";
@@ -324,7 +305,6 @@ async function escreverNoQuadro(elemento, texto){
     let i=0, frameIndex=0;
     escreverIntervalo = setInterval(()=>{
       elemento.textContent += texto[i] ?? "";
-      // anima frames da professora enquanto escreve
       professorEl.style.backgroundImage = `url(${imgFrames[frameIndex]})`;
       frameIndex = (frameIndex + 1) % imgFrames.length;
       i++;
@@ -338,7 +318,7 @@ async function escreverNoQuadro(elemento, texto){
   });
 }
 
-/* ========== Mostrar pergunta ========== */
+/* ================= MOSTRAR PERGUNTA ================= */
 async function mostrarPergunta(){
   if(!perguntas.length) return;
   const q = perguntas[indice];
@@ -346,37 +326,28 @@ async function mostrarPergunta(){
   respostasDiv.innerHTML = "";
   feedback.textContent = "";
 
-  // escreve pergunta com animação
   await escreverNoQuadro(document.getElementById("question"), q.pergunta);
 
-  // cria botões de alternativas
   q.opcoes.forEach((opcao, i)=>{
     const btn = document.createElement("button");
     btn.textContent = opcao;
     btn.dataset.index = i;
 
-    // se esta pergunta já foi respondida antes, travar e mostrar qual foi a escolha + feedback
     const resp = perguntasRespondidas[indice];
     if(resp){
-      // desativa o botão
       btn.disabled = true;
-
-      // se esta foi a alternativa escolhida pelo aluno, marcar visualmente
       if(resp.choice === i){
         btn.classList.add("selecionada");
         if(resp.correct) btn.classList.add("correta");
         else btn.classList.add("errada");
       }
-
     } else {
-      // ainda não respondida → permitir clique
-      btn.addEventListener("click", ()=> checkAnswer(i === q.certa, i) );
+      btn.onclick = ()=> checkAnswer(i === q.certa, i);
     }
 
     respostasDiv.appendChild(btn);
   });
 
-  // se já respondeu antes, mostrar feedback salvo
   const salvo = perguntasRespondidas[indice];
   if(salvo){
     if(salvo.correct){
@@ -389,7 +360,6 @@ async function mostrarPergunta(){
       professorEl.style.backgroundImage = `url(${imgErrada})`;
     }
   } else {
-    // pergunta nova → reset estilo da professora e feedback
     feedback.textContent = "";
     feedback.className = "feedback";
     professorEl.style.backgroundImage = `url(${imgFrames[0]})`;
@@ -397,17 +367,12 @@ async function mostrarPergunta(){
   }
 }
 
-/* ========== Checar resposta ========== */
+/* ================= CHECAR RESPOSTA ================= */
 function checkAnswer(certa, choiceIndex){
-  // marca no registro respostasRespondidas pro caso de voltar depois
   perguntasRespondidas[indice] = { choice: choiceIndex, correct: certa };
-
-  // trava somente os botões desta pergunta
   desativarRespostasAtuais();
 
-  // aplica estilos visuais: marca a alternativa escolhida e correta/errada
-  const botoes = document.querySelectorAll("#answers button");
-  botoes.forEach(btn=>{
+  document.querySelectorAll("#answers button").forEach(btn=>{
     const idx = parseInt(btn.dataset.index);
     if(idx === choiceIndex){
       btn.classList.add("selecionada");
@@ -416,7 +381,6 @@ function checkAnswer(certa, choiceIndex){
     }
   });
 
-  // animação/feedback
   professorEl.style.animation = "";
   if(certa){
     pontuacao++;
@@ -432,7 +396,7 @@ function checkAnswer(certa, choiceIndex){
   }
 }
 
-/* ========== Start botão ========== */
+/* ================= START ================= */
 startBtn.onclick = ()=>{
   if(perguntas.length === 0) return alert("Adicione pelo menos uma pergunta!");
   telaInicial.style.opacity = 0; startBtn.style.opacity = 0;
@@ -441,7 +405,6 @@ startBtn.onclick = ()=>{
     document.getElementById("professor-login").style.display = "none";
     document.getElementById("cadastro-perguntas").style.display = "none";
     btnSair.style.display = 'none';
-    // esconder controles de áudio (conforme pedido: só na tela inicial)
     document.getElementById("controle-audio").style.display = "none";
     quizContainer.style.display = "flex";
     setTimeout(()=> quizContainer.style.opacity = 1, 50);
@@ -451,7 +414,7 @@ startBtn.onclick = ()=>{
   }, 600);
 };
 
-/* ========== Navegação: avançar / voltar / terminar ========== */
+/* ================= NAVEGAÇÃO ================= */
 document.getElementById("btn-avancar-pergunta").onclick = ()=>{
   if(indice < perguntas.length - 1){
     indice++;
@@ -464,9 +427,9 @@ document.getElementById("btn-voltar-pergunta").onclick = ()=>{
     mostrarPergunta();
   }
 };
-document.getElementById("btn-terminar").onclick = ()=>{ mostrarFim(); };
+document.getElementById("btn-terminar").onclick = ()=> mostrarFim();
 
-/* ========== Mostrar fim ========== */
+/* ================= TELA FINAL ================= */
 function mostrarFim(){
   quizContainer.style.display = "none";
 
@@ -512,33 +475,23 @@ function mostrarFim(){
   document.body.appendChild(fimDiv);
 }
 
-/* ========== Resetar jogo ========== */
+/* ================= RESET ================= */
 function resetarJogo(){
-  // limpa registro de respostas para novo jogo
   perguntasRespondidas = {};
-  telaInicial.style.display = "block"; telaInicial.style.opacity = 1; startBtn.style.opacity = 1;
-  indice = 0; pontuacao = 0;
-  professorEl.style.display = "block"; professorEl.style.backgroundImage = `url(${imgFrames[0]})`; professorEl.style.animation = "idle 3s ease-in-out infinite";
-  document.getElementById("question").textContent = ""; document.getElementById("answers").innerHTML = ""; feedback.textContent = "";
-  const fimExistente = document.getElementById("tela-fim"); if(fimExistente) fimExistente.remove();
+  indice = 0;
+  pontuacao = 0;
 
-  // reaparecer controles de áudio na tela inicial
+  telaInicial.style.display = "block";
+  telaInicial.style.opacity = 1;
+  startBtn.style.opacity = 1;
+
+  professorEl.style.display = "none";
   document.getElementById("controle-audio").style.display = "flex";
-  // ajustar qual imagem mostrar conforme estado atual do áudio
-  if(musica.muted){
-    btnUserOn.style.display = 'none';
-    btnUserOff.style.display = 'inline-block';
-  } else {
-    btnUserOn.style.display = 'inline-block';
-    btnUserOff.style.display = 'none';
-  }
+
+  quizContainer.style.display = "none";
+  quizContainer.style.opacity = 0;
 }
 
-/* ESC para sair do modo professor */
-document.addEventListener('keydown',(e)=>{ if(e.key === 'Escape'){ sairEdicao(); } });
-
-/* Caso o usuário recarregue a página, tenta restaurar perguntas (mas não respostasRespondidas) */
-window.addEventListener('load', ()=>{ carregarPerguntas(); });
 </script>
 </body>
 </html>
